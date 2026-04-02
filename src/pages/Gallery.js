@@ -104,7 +104,7 @@ function Gallery() {
       shortDescription: "College Hackathon 2024",
       fullDescription: "Achieved finalist position in the College Hackathon 2024. Demonstrated strong problem-solving skills, teamwork, and ability to build innovative solutions under time pressure. The experience enhanced my skills in rapid prototyping and collaborative development.",
       images: [
-        "/achievements/hackathon-1.jpg",
+        "/achievements/hackathon.jpg",
         "/achievements/hackathon-2.jpg"
       ],
       technologies: ["Problem Solving", "Team Collaboration", "Rapid Development"],

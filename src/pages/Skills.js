@@ -15,7 +15,7 @@ function Skills() {
         <div className="bubble"><img src="/html.png" alt="HTML" /></div>
         <div className="bubble"><img src="/css.png" alt="CSS" /></div>
         <div className="bubble"><img src="/java-script.png" alt="JavaScript" /></div>
-        <div className="bubble"><img src="/logo192.png" alt="react" /></div>
+        <div className="bubble"><img src="/logo512.png" alt="react" /></div>
         <div className="bubble"><img src="/node.png" alt="node" /></div>
         <div className="bubble"><img src="/icons8-python-94.png" alt="" /></div>
       </div>

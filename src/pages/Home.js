@@ -198,9 +198,9 @@ const galleryItems = [
     shortDescription: "Complete hostel administration solution",
     fullDescription: "A full-stack Hostel Management System built to manage room allocation, student records, and booking operations. It simplifies hostel administration by automating processes and reducing manual work. The system includes real-time room availability tracking, student management, and a comprehensive admin dashboard for complete control over hostel operations.",
     images: [
-      "/projects/hostel-1.png",
-      "/projects/hostel-2.png",
-      "/projects/hostel-3.png"
+      "/projects/hostel1.png",
+      "/projects/hostel2.png",
+      "/projects/hostel3.png"
     ],
     technologies: ["React.js", "Node.js", "Express.js", "MongoDB", "JWT Auth"],
     features: [
@@ -225,7 +225,7 @@ const galleryItems = [
     shortDescription: "Modern personal portfolio with animations",
     fullDescription: "A personal portfolio website showcasing my skills, projects, and experience as a Full Stack Developer. It highlights my work, technical expertise, and provides a platform for recruiters and clients to connect with me. Features include smooth animations, interactive elements, and a clean modern design.",
     images: [
-      "/projects/portfolio-1.png",
+      "/projects/portfolio1.png",
       "/projects/portfolio-2.png",
       "/projects/portfolio-3.png"
     ],
@@ -237,12 +237,12 @@ const galleryItems = [
       "Smooth scroll animations",
       "Dark theme interface"
     ],
-    liveLink: "",
+    liveLink: "https://portfolio-1312.vercel.app/",
     githubLink: "https://github.com/gautamv8484/Portfolio",
     date: "2025",
     duration: "Ongoing",
     role: "Frontend Developer",
-    status: "In Development"
+    status: "Live"
   },
   {
     id: 4,
@@ -251,7 +251,7 @@ const galleryItems = [
     shortDescription: "College Hackathon 2024 - Finalist",
     fullDescription: "Achieved finalist position in the College Hackathon 2024. Demonstrated strong problem-solving skills, teamwork, and ability to build innovative solutions under time pressure. The experience enhanced my skills in rapid prototyping and collaborative development.",
     images: [
-      "/achievements/hackathon-1.jpg",
+      "/achievements/hackathon.jpg",
       "/achievements/hackathon-2.jpg"
     ],
     technologies: ["Problem Solving", "Team Collaboration", "Rapid Development"],
@@ -728,7 +728,7 @@ const galleryItems = [
               <img src="/java-script.png" alt="JavaScript" />
             </motion.div>
             <motion.div className="bubble" whileHover={{ scale: 1.2 }}>
-              <img src="/logo192.png" alt="React" />
+              <img src="/logo512.png" alt="React" />
             </motion.div>
             <motion.div className="bubble" whileHover={{ scale: 1.2 }}>
               <img src="/node.png" alt="Node.js" />
@@ -1104,7 +1104,7 @@ const galleryItems = [
             <div className="left">
               <h2 className="name">✨ Gautam Vyas</h2>
               <p className="role">Full Stack Developer</p>
-              <p className="location">📍 Surat, India</p>
+              <p className="location">📍 Gandhinagar, India</p>
               <p className="email">✉ gautamv8484@gmail.com</p>
 
               <h3 className="section-title">📘 Education</h3>
