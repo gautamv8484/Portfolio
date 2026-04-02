@@ -1776,24 +1776,47 @@ img {
 
 
 /* ============================================
-  PROJECT MODAL
-   ============================================ */
+   PROJECT MODAL - FIXED FOR ALL SCREENS
+============================================ */
+
+/* Modal Overlay - Full Screen Cover */
 .project-modal-overlay {
   position: fixed;
-  top: 10%;
+  top: 20%;
   left: 0;
+  right: 0;
+  bottom: 0;
   width: 100%;
-  height: auto;
-  background: rgba(0, 0, 0, 0.95);
+  height: 100vh;
+  /* background: rgba(0, 0, 0, 0.95); */
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   z-index: 2000;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  
   animation: fadeIn 0.3s ease;
+  overflow-y: auto;
 }
 
+/* Modal Container */
+.project-modal {
+  width: 100%;
+  max-width: 1200px;
+  max-height: 90vh;
+  background: var(--bg-darker);
+  border-radius: var(--border-radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  overflow-y: auto;
+  position: relative;
+  animation: slideUp 0.4s ease;
+  margin: auto;
+  top: 0%;
+}
+
+/* Animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -1803,26 +1826,63 @@ img {
   }
 }
 
-.project-modal {
-  width: 100%;
-  max-width: 1200px;
-  max-height: 90vh;
-  background: var(--bg-darker);
-  border-radius: var(--border-radius-lg);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  overflow: hidden;
-  position: relative;
-  animation: slideUp 0.4s ease;
-}
-
 @keyframes slideUp {
   from {
     opacity: 0;
-    transform: translateY(50px);
+    transform: translateY(30px) scale(0.95);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ============================================
+   MOBILE RESPONSIVE - CENTERED MODAL
+============================================ */
+
+/* Tablets */
+@media (max-width: 1024px) {
+  .project-modal-overlay {
+    margin-top: 0px;
+    padding: 15px;
+  }
+
+  .project-modal {
+    max-width: 95%;
+    max-height: 85vh;
+  }
+}
+
+/* Mobile Devices */
+@media (max-width: 768px) {
+  .project-modal-overlay {
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .project-modal {
+    width: 95%;
+    max-width: 100%;
+    max-height: 90vh;
+    margin: auto;
+    border-radius: 16px;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .project-modal-overlay {
+    padding: 8px;
+  }
+
+  .project-modal {
+    width: 100%;
+    max-width: 100%;
+    max-height: 95vh;
+    border-radius: 12px;
+    margin: auto;
   }
 }
 
