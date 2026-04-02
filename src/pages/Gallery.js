@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import "../style.css";
 import Navbar from "../components/Navbar";
 
@@ -6,221 +7,187 @@ function Gallery() {
   const [activeCategory, setActiveCategory] = useState("all");
   const [selectedProject, setSelectedProject] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // Gallery data - replace with your actual data
+  // YOUR ACTUAL PROJECTS DATA
   const galleryItems = [
     {
       id: 1,
       category: "project",
-      title: "E-Commerce Website",
-      shortDescription: "Full-stack shopping platform",
-      fullDescription: "A complete e-commerce solution built from scratch with user authentication, product management, shopping cart, payment integration, and order tracking. Features include real-time inventory updates, wishlist functionality, and admin dashboard for managing products and orders.",
+      title: "Digital Seva Platform",
+      shortDescription: "Full-stack digital services platform",
+      fullDescription: "Digital Seva is a full-stack web application designed to provide various digital services in a centralized platform. It allows users to access essential services efficiently with a clean and responsive interface. The system focuses on performance, scalability, and user experience. Built with modern technologies to ensure fast loading times and seamless user interactions across all devices.",
       images: [
-        "/project1-img1.jpg",
-        "/project1-img2.jpg",
-        "/project1-img3.jpg",
-        "/project1-img4.jpg"
+        "/projects/digital-seva-1.png",
+        "/projects/digital-seva-2.png",
+        "/projects/digital-seva-3.png"
       ],
-      technologies: ["React", "Node.js", "MongoDB", "Express", "Stripe"],
+      technologies: ["React.js", "Node.js", "Express.js", "MongoDB", "REST API"],
       features: [
-        "User Authentication & Authorization",
-        "Product Search & Filtering",
-        "Shopping Cart & Wishlist",
-        "Payment Gateway Integration",
-        "Order Tracking System",
-        "Admin Dashboard"
+        "User-friendly interface",
+        "Responsive design (mobile + desktop)",
+        "API-based backend system",
+        "Scalable architecture",
+        "Fast loading performance",
+        "Secure data handling"
       ],
-      liveLink: "https://your-project-link.com",
-      githubLink: "https://github.com/yourusername/project",
-      date: "January 2025",
-      duration: "3 months",
-      role: "Full Stack Developer"
+      liveLink: "https://digital-seva.vercel.app/",
+      githubLink: "https://github.com/gautamv8484/Digital-Seva",
+      date: "2024",
+      duration: "2 months",
+      role: "Full Stack Developer",
+      status: "Live",
+      highlights: ["MERN Stack", "Live Project", "Responsive"]
     },
     {
       id: 2,
       category: "project",
-      title: "Portfolio Website",
-      shortDescription: "Personal portfolio with animations",
-      fullDescription: "A modern, responsive portfolio website showcasing my skills, projects, and achievements. Built with React and features smooth animations, dark theme, and interactive elements to create an engaging user experience.",
+      title: "Hostel Management System",
+      shortDescription: "Complete hostel administration solution",
+      fullDescription: "A full-stack Hostel Management System built to manage room allocation, student records, and booking operations. It simplifies hostel administration by automating processes and reducing manual work. The system includes real-time room availability tracking, student management, and a comprehensive admin dashboard for complete control over hostel operations.",
       images: [
-        "/project2-img1.jpg",
-        "/project2-img2.jpg",
-        "/project2-img3.jpg"
+        "/projects/hostel-1.png",
+        "/projects/hostel-2.png",
+        "/projects/hostel-3.png",
+        "/projects/hostel-4.png"
       ],
-      technologies: ["React", "CSS3", "JavaScript", "Framer Motion"],
+      technologies: ["React.js", "Node.js", "Express.js", "MongoDB", "JWT Auth"],
       features: [
-        "Responsive Design",
-        "Smooth Animations",
-        "Interactive UI",
-        "Contact Form",
-        "Project Showcase"
+        "User authentication & authorization",
+        "Room booking system",
+        "Admin dashboard",
+        "Real-time room availability",
+        "RESTful API integration",
+        "Student record management",
+        "Booking history tracking"
       ],
-      liveLink: "https://your-portfolio.com",
-      githubLink: "https://github.com/yourusername/portfolio",
-      date: "December 2024",
-      duration: "2 weeks",
-      role: "Frontend Developer"
+      liveLink: "https://hostel-management-system-mern-stack-gmr4zvv62.vercel.app/",
+      githubLink: "https://github.com/gautamv8484/Hostel-Management-System-MERN-STACK-",
+      date: "2024",
+      duration: "3 months",
+      role: "Full Stack Developer",
+      status: "Live",
+      highlights: ["MERN Stack", "Authentication", "Dashboard"]
     },
     {
       id: 3,
       category: "project",
-      title: "Task Management App",
-      shortDescription: "Productivity app with drag & drop",
-      fullDescription: "A comprehensive task management application with drag-and-drop functionality, team collaboration features, deadline reminders, and progress tracking. Helps teams stay organized and productive.",
+      title: "Portfolio Website",
+      shortDescription: "Modern personal portfolio with animations",
+      fullDescription: "A personal portfolio website showcasing my skills, projects, and experience as a Full Stack Developer. It highlights my work, technical expertise, and provides a platform for recruiters and clients to connect with me. Features include smooth animations, interactive elements, and a clean modern design that represents my professional identity.",
       images: [
-        "/project3-img1.jpg",
-        "/project3-img2.jpg",
-        "/project3-img3.jpg",
-        "/project3-img4.jpg"
+        "/projects/portfolio-1.png",
+        "/projects/portfolio-2.png",
+        "/projects/portfolio-3.png"
       ],
-      technologies: ["React", "Redux", "Firebase", "Material-UI"],
+      technologies: ["React.js", "Framer Motion", "GSAP", "CSS3", "Vercel"],
       features: [
-        "Drag & Drop Tasks",
-        "Team Collaboration",
-        "Deadline Reminders",
-        "Progress Tracking",
-        "Real-time Updates"
+        "Modern responsive UI",
+        "Project showcase section",
+        "Contact section with form",
+        "Clean and interactive design",
+        "Smooth scroll animations",
+        "Dark theme interface"
       ],
-      liveLink: "https://task-app.com",
-      githubLink: "https://github.com/yourusername/task-app",
-      date: "November 2024",
-      duration: "1 month",
-      role: "Frontend Developer"
+      liveLink: "",
+      githubLink: "https://github.com/gautamv8484/Portfolio",
+      date: "2025",
+      duration: "Ongoing",
+      role: "Frontend Developer",
+      status: "In Development",
+      highlights: ["React", "Animations", "Modern UI"]
     },
     {
       id: 4,
-      category: "personal",
-      title: "My Journey",
-      shortDescription: "Personal life moments",
-      fullDescription: "A collection of memorable moments from my personal journey. These photos represent the experiences and adventures that have shaped who I am today.",
+      category: "achievement",
+      title: "Hackathon Finalist",
+      shortDescription: "College Hackathon 2024",
+      fullDescription: "Achieved finalist position in the College Hackathon 2024. Demonstrated strong problem-solving skills, teamwork, and ability to build innovative solutions under time pressure. The experience enhanced my skills in rapid prototyping and collaborative development.",
       images: [
-        "/retouch_2025091813124944.jpg",
-        "/1.jpg",
-        "/personal-img3.jpg",
-        "/personal-img4.jpg"
+        "/achievements/hackathon-1.jpg",
+        "/achievements/hackathon-2.jpg"
       ],
-      technologies: [],
-      features: [],
-      liveLink: "",
-      githubLink: "",
-      date: "2024-2025",
-      duration: "",
-      role: ""
-    },
-    {
-      id: 5,
-      category: "personal",
-      title: "Adventures",
-      shortDescription: "Travel and exploration",
-      fullDescription: "Capturing beautiful moments from my travels and adventures. Each photo tells a story of exploration, discovery, and the joy of experiencing new places.",
-      images: [
-        "/IMG_20250927_162313.png",
-        "/retouch_2025112212470553.jpg",
-        "/adventure-img3.jpg"
+      technologies: ["Problem Solving", "Team Collaboration", "Rapid Development"],
+      features: [
+        "Built solution in limited time",
+        "Team collaboration",
+        "Innovative approach",
+        "Technical presentation"
       ],
-      technologies: [],
-      features: [],
       liveLink: "",
       githubLink: "",
       date: "2024",
-      duration: "",
-      role: ""
+      duration: "24 hours",
+      role: "Team Member",
+      status: "Completed",
+      highlights: ["Finalist", "Teamwork", "Innovation"]
+    },
+    {
+      id: 5,
+      category: "achievement",
+      title: "Startup Project",
+      shortDescription: "Entrepreneurial venture in review",
+      fullDescription: "Currently working on an innovative startup project that aims to solve real-world problems through technology. The project is in the review phase and focuses on creating impactful solutions using modern web technologies and user-centered design principles.",
+      images: [
+        "/achievements/startup-1.jpg",
+        "/achievements/startup-2.jpg"
+      ],
+      technologies: ["Business Development", "Product Design", "Full Stack Development"],
+      features: [
+        "Market research",
+        "Product development",
+        "Business planning",
+        "Technical implementation"
+      ],
+      liveLink: "",
+      githubLink: "",
+      date: "2024-2025",
+      duration: "Ongoing",
+      role: "Founder & Developer",
+      status: "In Review",
+      highlights: ["Startup", "Innovation", "Entrepreneurship"]
     },
     {
       id: 6,
-      category: "achievement",
-      title: "Hackathon Winner",
-      shortDescription: "1st Place - Tech Fest 2024",
-      fullDescription: "Won first place in the annual Tech Fest Hackathon 2024. Our team built an innovative solution for sustainable urban transportation in just 24 hours. The project impressed judges with its creativity, technical implementation, and real-world applicability.",
+      category: "personal",
+      title: "My Journey",
+      shortDescription: "Personal life moments & memories",
+      fullDescription: "A collection of memorable moments from my personal journey as a developer and individual. These photos represent the experiences, adventures, and milestones that have shaped who I am today. From learning to code to building real-world applications.",
       images: [
-        "/achievement1-img1.jpg",
-        "/achievement1-img2.jpg",
-        "/achievement1-img3.jpg"
+        "/personal/journey-1.jpg",
+        "/personal/journey-2.jpg",
+        "/personal/journey-3.jpg"
       ],
-      technologies: ["Python", "TensorFlow", "React Native", "Google Maps API"],
-      features: [
-        "AI-powered route optimization",
-        "Real-time traffic analysis",
-        "Carbon footprint tracking",
-        "Community carpooling"
-      ],
+      technologies: [],
+      features: [],
       liveLink: "",
-      githubLink: "https://github.com/yourusername/hackathon-project",
-      date: "March 2024",
-      duration: "24 hours",
-      role: "Team Lead & Developer"
+      githubLink: "",
+      date: "2022-2025",
+      duration: "",
+      role: "",
+      status: "",
+      highlights: ["Memories", "Growth", "Journey"]
     },
     {
       id: 7,
-      category: "achievement",
-      title: "AWS Certification",
-      shortDescription: "AWS Solutions Architect",
-      fullDescription: "Successfully earned the AWS Certified Solutions Architect - Associate certification. This validates my expertise in designing distributed systems on AWS, implementing cost-effective solutions, and following best practices for cloud architecture.",
+      category: "personal",
+      title: "College Life",
+      shortDescription: "B.Tech IT memories",
+      fullDescription: "Capturing the best moments from my B.Tech journey at Swarrnim Institute of Technology. From coding sessions to project presentations, hackathons to friendships - these memories define my college experience as an IT student.",
       images: [
-        "/achievement2-img1.jpg",
-        "/achievement2-img2.jpg"
+        "/personal/college-1.jpg",
+        "/personal/college-2.jpg",
+        "/personal/college-3.jpg"
       ],
-      technologies: ["AWS EC2", "S3", "Lambda", "RDS", "CloudFormation"],
-      features: [
-        "Cloud Architecture Design",
-        "Security Best Practices",
-        "Cost Optimization",
-        "High Availability Systems"
-      ],
-      liveLink: "https://aws.amazon.com/verification",
+      technologies: [],
+      features: [],
+      liveLink: "",
       githubLink: "",
-      date: "February 2024",
-      duration: "3 months preparation",
-      role: "Cloud Practitioner"
-    },
-    {
-      id: 8,
-      category: "achievement",
-      title: "Open Source Contributor",
-      shortDescription: "Top contributor badge",
-      fullDescription: "Recognized as a top contributor to several open-source projects. Made significant contributions including bug fixes, new features, and documentation improvements. Active member of the developer community.",
-      images: [
-        "/achievement3-img1.jpg",
-        "/achievement3-img2.jpg",
-        "/achievement3-img3.jpg"
-      ],
-      technologies: ["JavaScript", "TypeScript", "Python", "Go"],
-      features: [
-        "50+ Pull Requests Merged",
-        "Bug Fixes & Features",
-        "Documentation",
-        "Code Reviews"
-      ],
-      liveLink: "https://github.com/yourusername",
-      githubLink: "https://github.com/yourusername",
-      date: "2023-2024",
-      duration: "Ongoing",
-      role: "Open Source Contributor"
-    },
-    {
-      id: 9,
-      category: "project",
-      title: "Weather Dashboard",
-      shortDescription: "Real-time weather application",
-      fullDescription: "A beautiful weather dashboard that provides real-time weather information, 7-day forecasts, and weather alerts. Features include location-based weather, multiple city tracking, and interactive weather maps.",
-      images: [
-        "/project4-img1.jpg",
-        "/project4-img2.jpg",
-        "/project4-img3.jpg"
-      ],
-      technologies: ["React", "OpenWeather API", "Chart.js", "Geolocation API"],
-      features: [
-        "Real-time Weather Data",
-        "7-Day Forecast",
-        "Weather Alerts",
-        "Interactive Maps",
-        "Multiple Locations"
-      ],
-      liveLink: "https://weather-dashboard.com",
-      githubLink: "https://github.com/yourusername/weather-app",
-      date: "October 2024",
-      duration: "2 weeks",
-      role: "Frontend Developer"
+      date: "2022-2026",
+      duration: "",
+      role: "Student",
+      status: "",
+      highlights: ["B.Tech", "IT", "Memories"]
     }
   ];
 
@@ -228,37 +195,33 @@ function Gallery() {
     ? galleryItems
     : galleryItems.filter(item => item.category === activeCategory);
 
-  const openModal = (item) => {
+  const openModal = useCallback((item) => {
     setSelectedProject(item);
     setCurrentImageIndex(0);
     document.body.style.overflow = "hidden";
-  };
+  }, []);
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     setSelectedProject(null);
     setCurrentImageIndex(0);
     document.body.style.overflow = "auto";
-  };
+  }, []);
 
-  const nextImage = () => {
+  const nextImage = useCallback(() => {
     if (selectedProject) {
       setCurrentImageIndex((prev) =>
         prev === selectedProject.images.length - 1 ? 0 : prev + 1
       );
     }
-  };
+  }, [selectedProject]);
 
-  const prevImage = () => {
+  const prevImage = useCallback(() => {
     if (selectedProject) {
       setCurrentImageIndex((prev) =>
         prev === 0 ? selectedProject.images.length - 1 : prev - 1
       );
     }
-  };
-
-  const goToImage = (index) => {
-    setCurrentImageIndex(index);
-  };
+  }, [selectedProject]);
 
   // Keyboard navigation
   useEffect(() => {
@@ -271,269 +234,529 @@ function Gallery() {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [selectedProject]);
+  }, [selectedProject, closeModal, nextImage, prevImage]);
+
+  // Simulate loading
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Category counts
+  const categoryCounts = {
+    all: galleryItems.length,
+    project: galleryItems.filter(i => i.category === "project").length,
+    achievement: galleryItems.filter(i => i.category === "achievement").length,
+    personal: galleryItems.filter(i => i.category === "personal").length
+  };
 
   return (
     <>
       <Navbar />
 
-      {/* Gallery Section */}
-      <section className="gallery-section">
+      {/* Main Gallery Section */}
+      <section className="gallery-page">
+        
         {/* Animated Background */}
-        <div className="gallery-bg-shapes">
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
+        <div className="gallery-background">
+          <div className="bg-grid"></div>
+          <div className="bg-glow bg-glow-1"></div>
+          <div className="bg-glow bg-glow-2"></div>
+          <div className="bg-glow bg-glow-3"></div>
+          <div className="floating-code">
+            <span>{"<code>"}</span>
+            <span>{"{ }"}</span>
+            <span>{"</>"}</span>
+            <span>{"[ ]"}</span>
+            <span>{"( )"}</span>
+          </div>
         </div>
 
-        {/* Header */}
-        <div className="gallery-header">
-          <span className="gallery-subtitle">My Work</span>
-          <h1 className="gallery-title">Gallery</h1>
-          <p className="gallery-description">
-            A showcase of my journey, projects, and achievements
-          </p>
-        </div>
-
-        {/* Filter Tabs */}
-        <div className="gallery-filters">
-          <button
-            className={`filter-btn ${activeCategory === "all" ? "active" : ""}`}
-            onClick={() => setActiveCategory("all")}
+        {/* Hero Header */}
+        <div className="gallery-hero">
+          <motion.div 
+            className="gallery-hero-content"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
           >
-            <i className="fas fa-th-large"></i>
-            All
-          </button>
-          <button
-            className={`filter-btn ${activeCategory === "personal" ? "active" : ""}`}
-            onClick={() => setActiveCategory("personal")}
-          >
-            <i className="fas fa-user"></i>
-            Personal
-          </button>
-          <button
-            className={`filter-btn ${activeCategory === "project" ? "active" : ""}`}
-            onClick={() => setActiveCategory("project")}
-          >
-            <i className="fas fa-code"></i>
-            Projects
-          </button>
-          <button
-            className={`filter-btn ${activeCategory === "achievement" ? "active" : ""}`}
-            onClick={() => setActiveCategory("achievement")}
-          >
-            <i className="fas fa-trophy"></i>
-            Achievements
-          </button>
-        </div>
-
-        {/* Gallery Grid */}
-        <div className="gallery-grid">
-          {filteredItems.map((item, index) => (
-            <div
-              className="gallery-item"
-              key={item.id}
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <div className="gallery-item-inner">
-                <img src={item.images[0]} alt={item.title} />
-                <div className="gallery-item-overlay">
-                  <div className="overlay-content">
-                    <span className="item-category">{item.category}</span>
-                    <h3 className="item-title">{item.title}</h3>
-                    <p className="item-description">{item.shortDescription}</p>
-                    <button className="view-btn" onClick={() => openModal(item)}>
-                      <i className="fas fa-expand"></i>
-                      View Details
-                    </button>
-                  </div>
-                </div>
-                <div className="item-glow"></div>
+            <span className="gallery-badge">
+              <i className="fas fa-folder-open"></i> My Work
+            </span>
+            <h1 className="gallery-main-title">
+              Project <span className="highlight">Gallery</span>
+            </h1>
+            <p className="gallery-main-description">
+              Explore my journey through code — from full-stack applications to 
+              personal achievements. Each project represents a step forward in my 
+              development career.
+            </p>
+            
+            {/* Quick Stats */}
+            <div className="gallery-quick-stats">
+              <div className="quick-stat">
+                <span className="stat-value">{categoryCounts.project}</span>
+                <span className="stat-name">Projects</span>
+              </div>
+              <div className="stat-divider"></div>
+              <div className="quick-stat">
+                <span className="stat-value">{categoryCounts.achievement}</span>
+                <span className="stat-name">Achievements</span>
+              </div>
+              <div className="stat-divider"></div>
+              <div className="quick-stat">
+                <span className="stat-value">3+</span>
+                <span className="stat-name">Live Apps</span>
               </div>
             </div>
-          ))}
+          </motion.div>
+        </div>
+
+        {/* Filter Section */}
+        <motion.div 
+          className="gallery-filter-section"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          <div className="filter-container">
+            {[
+              { key: "all", icon: "fa-layer-group", label: "All" },
+              { key: "project", icon: "fa-code", label: "Projects" },
+              { key: "achievement", icon: "fa-trophy", label: "Achievements" },
+              { key: "personal", icon: "fa-user", label: "Personal" }
+            ].map((filter) => (
+              <motion.button
+                key={filter.key}
+                className={`filter-button ${activeCategory === filter.key ? "active" : ""}`}
+                onClick={() => setActiveCategory(filter.key)}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <i className={`fas ${filter.icon}`}></i>
+                <span>{filter.label}</span>
+                <span className="filter-count">{categoryCounts[filter.key]}</span>
+              </motion.button>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Gallery Grid */}
+        <div className="gallery-container">
+          <AnimatePresence mode="wait">
+            <motion.div 
+              className="gallery-grid-new"
+              key={activeCategory}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              {filteredItems.map((item, index) => (
+                <motion.div
+                  className={`gallery-card ${item.category}`}
+                  key={item.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  whileHover={{ y: -10 }}
+                  onClick={() => openModal(item)}
+                >
+                  {/* Card Image */}
+                  <div className="card-image">
+                    <img src={item.images[0]} alt={item.title} />
+                    <div className="card-overlay">
+                      <motion.button 
+                        className="view-project-btn"
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                      >
+                        <i className="fas fa-eye"></i>
+                        View Details
+                      </motion.button>
+                    </div>
+                    
+                    {/* Status Badge */}
+                    {item.status && (
+                      <span className={`status-badge ${item.status.toLowerCase().replace(' ', '-')}`}>
+                        {item.status}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Card Content */}
+                  <div className="card-content">
+                    <div className="card-category">
+                      <i className={`fas fa-${item.category === 'project' ? 'code' : item.category === 'achievement' ? 'trophy' : 'user'}`}></i>
+                      {item.category}
+                    </div>
+                    
+                    <h3 className="card-title">{item.title}</h3>
+                    <p className="card-description">{item.shortDescription}</p>
+                    
+                    {/* Highlights */}
+                    {item.highlights && item.highlights.length > 0 && (
+                      <div className="card-highlights">
+                        {item.highlights.map((highlight, idx) => (
+                          <span key={idx} className="highlight-tag">{highlight}</span>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Tech Stack Preview */}
+                    {item.technologies.length > 0 && (
+                      <div className="card-tech">
+                        {item.technologies.slice(0, 3).map((tech, idx) => (
+                          <span key={idx} className="tech-pill">{tech}</span>
+                        ))}
+                        {item.technologies.length > 3 && (
+                          <span className="tech-more">+{item.technologies.length - 3}</span>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Card Footer */}
+                    <div className="card-footer">
+                      <span className="card-date">
+                        <i className="fas fa-calendar-alt"></i>
+                        {item.date}
+                      </span>
+                      <div className="card-links">
+                        {item.liveLink && (
+                          <a 
+                            href={item.liveLink} 
+                            target="_blank" 
+                            rel="noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="card-link live"
+                          >
+                            <i className="fas fa-external-link-alt"></i>
+                          </a>
+                        )}
+                        {item.githubLink && (
+                          <a 
+                            href={item.githubLink} 
+                            target="_blank" 
+                            rel="noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="card-link github"
+                          >
+                            <i className="fab fa-github"></i>
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Card Glow Effect */}
+                  <div className="card-glow"></div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Featured Projects Section */}
+        <div className="featured-section">
+          <div className="featured-header">
+            <h2><i className="fas fa-star"></i> Featured Projects</h2>
+            <p>My top projects showcasing full-stack development skills</p>
+          </div>
+          
+          <div className="featured-grid">
+            {galleryItems.filter(item => item.category === "project" && item.liveLink).map((project) => (
+              <motion.div 
+                key={project.id}
+                className="featured-card"
+                whileHover={{ scale: 1.02 }}
+              >
+                <div className="featured-image">
+                  <img src={project.images[0]} alt={project.title} />
+                  <div className="featured-overlay">
+                    <a 
+                      href={project.liveLink} 
+                      target="_blank" 
+                      rel="noreferrer"
+                      className="featured-live-btn"
+                    >
+                      <i className="fas fa-rocket"></i> Visit Live
+                    </a>
+                  </div>
+                </div>
+                <div className="featured-content">
+                  <h3>{project.title}</h3>
+                  <p>{project.shortDescription}</p>
+                  <div className="featured-tech">
+                    {project.technologies.slice(0, 4).map((tech, idx) => (
+                      <span key={idx}>{tech}</span>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
 
         {/* Stats Section */}
-        <div className="gallery-stats">
-          <div className="stat-item">
-            <span className="stat-number">
-              {galleryItems.filter(i => i.category === "project").length}+
-            </span>
-            <span className="stat-label">Projects</span>
-          </div>
-          <div className="stat-item">
-            <span className="stat-number">
-              {galleryItems.filter(i => i.category === "achievement").length}+
-            </span>
-            <span className="stat-label">Achievements</span>
-          </div>
-          <div className="stat-item">
-            <span className="stat-number">
-              {galleryItems.reduce((acc, item) => acc + item.images.length, 0)}+
-            </span>
-            <span className="stat-label">Photos</span>
-          </div>
-        </div>
-
-        {/* Full Screen Project Modal */}
-        {selectedProject && (
-          <div className="project-modal-overlay" onClick={closeModal}>
-            <div className="project-modal" onClick={(e) => e.stopPropagation()}>
-              
-              {/* Close Button */}
-              <button className="modal-close-btn" onClick={closeModal}>
-                <i className="fas fa-times"></i>
-              </button>
-
-              {/* Modal Content */}
-              <div className="modal-content">
-                
-                {/* Left Side - Image Gallery */}
-                <div className="modal-gallery">
-                  <div className="main-image-container">
-                    <img
-                      src={selectedProject.images[currentImageIndex]}
-                      alt={`${selectedProject.title} - Image ${currentImageIndex + 1}`}
-                      className="main-image"
-                    />
-                    
-                    {/* Image Navigation Arrows */}
-                    {selectedProject.images.length > 1 && (
-                      <>
-                        <button className="img-nav-btn prev-btn" onClick={prevImage}>
-                          <i className="fas fa-chevron-left"></i>
-                        </button>
-                        <button className="img-nav-btn next-btn" onClick={nextImage}>
-                          <i className="fas fa-chevron-right"></i>
-                        </button>
-                      </>
-                    )}
-
-                    {/* Image Counter */}
-                    <div className="image-counter">
-                      {currentImageIndex + 1} / {selectedProject.images.length}
-                    </div>
-                  </div>
-
-                  {/* Thumbnail Strip */}
-                  {selectedProject.images.length > 1 && (
-                    <div className="thumbnail-strip">
-                      {selectedProject.images.map((img, index) => (
-                        <div
-                          key={index}
-                          className={`thumbnail ${index === currentImageIndex ? "active" : ""}`}
-                          onClick={() => goToImage(index)}
-                        >
-                          <img src={img} alt={`Thumbnail ${index + 1}`} />
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-
-                {/* Right Side - Project Details */}
-                <div className="modal-details">
-                  <div className="details-scroll">
-                    
-                    {/* Category Badge */}
-                    <span className="modal-category">{selectedProject.category}</span>
-                    
-                    {/* Title */}
-                    <h1 className="modal-title">{selectedProject.title}</h1>
-                    
-                    {/* Meta Info */}
-                    <div className="modal-meta">
-                      {selectedProject.date && (
-                        <div className="meta-item">
-                          <i className="fas fa-calendar-alt"></i>
-                          <span>{selectedProject.date}</span>
-                        </div>
-                      )}
-                      {selectedProject.duration && (
-                        <div className="meta-item">
-                          <i className="fas fa-clock"></i>
-                          <span>{selectedProject.duration}</span>
-                        </div>
-                      )}
-                      {selectedProject.role && (
-                        <div className="meta-item">
-                          <i className="fas fa-user-tag"></i>
-                          <span>{selectedProject.role}</span>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Description */}
-                    <div className="modal-section">
-                      <h3><i className="fas fa-info-circle"></i> About</h3>
-                      <p className="modal-description">{selectedProject.fullDescription}</p>
-                    </div>
-
-                    {/* Technologies */}
-                    {selectedProject.technologies.length > 0 && (
-                      <div className="modal-section">
-                        <h3><i className="fas fa-code"></i> Technologies Used</h3>
-                        <div className="tech-tags">
-                          {selectedProject.technologies.map((tech, index) => (
-                            <span key={index} className="tech-tag">{tech}</span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Features */}
-                    {selectedProject.features.length > 0 && (
-                      <div className="modal-section">
-                        <h3><i className="fas fa-star"></i> Key Features</h3>
-                        <ul className="features-list">
-                          {selectedProject.features.map((feature, index) => (
-                            <li key={index}>
-                              <i className="fas fa-check-circle"></i>
-                              {feature}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-
-                    {/* Action Buttons */}
-                    {(selectedProject.liveLink || selectedProject.githubLink) && (
-                      <div className="modal-actions">
-                        {selectedProject.liveLink && (
-                          <a
-                            href={selectedProject.liveLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="action-btn live-btn"
-                          >
-                            <i className="fas fa-external-link-alt"></i>
-                            Live Demo
-                          </a>
-                        )}
-                        {selectedProject.githubLink && (
-                          <a
-                            href={selectedProject.githubLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="action-btn github-btn"
-                          >
-                            <i className="fab fa-github"></i>
-                            View Code
-                          </a>
-                        )}
-                      </div>
-                    )}
-
-                  </div>
-                </div>
-
+        <motion.div 
+          className="gallery-stats-section"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+        >
+          <div className="stats-grid">
+            <div className="stat-card">
+              <div className="stat-icon">
+                <i className="fas fa-code"></i>
+              </div>
+              <div className="stat-info">
+                <span className="stat-number">{categoryCounts.project}+</span>
+                <span className="stat-label">Projects Built</span>
+              </div>
+            </div>
+            <div className="stat-card">
+              <div className="stat-icon">
+                <i className="fas fa-globe"></i>
+              </div>
+              <div className="stat-info">
+                <span className="stat-number">2+</span>
+                <span className="stat-label">Live Applications</span>
+              </div>
+            </div>
+            <div className="stat-card">
+              <div className="stat-icon">
+                <i className="fab fa-github"></i>
+              </div>
+              <div className="stat-info">
+                <span className="stat-number">10+</span>
+                <span className="stat-label">GitHub Repos</span>
+              </div>
+            </div>
+            <div className="stat-card">
+              <div className="stat-icon">
+                <i className="fas fa-trophy"></i>
+              </div>
+              <div className="stat-info">
+                <span className="stat-number">{categoryCounts.achievement}+</span>
+                <span className="stat-label">Achievements</span>
               </div>
             </div>
           </div>
-        )}
+        </motion.div>
+
+        {/* CTA Section */}
+        <div className="gallery-cta">
+          <h2>Interested in working together?</h2>
+          <p>I'm always open to discussing new projects and opportunities.</p>
+          <div className="cta-buttons">
+            <motion.a 
+              href="/#contact" 
+              className="cta-btn primary"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <i className="fas fa-paper-plane"></i> Get In Touch
+            </motion.a>
+            <motion.a 
+              href="https://github.com/gautamv8484" 
+              target="_blank"
+              rel="noreferrer"
+              className="cta-btn secondary"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <i className="fab fa-github"></i> View GitHub
+            </motion.a>
+          </div>
+        </div>
+
+        {/* Project Modal */}
+        <AnimatePresence>
+          {selectedProject && (
+            <motion.div 
+              className="project-modal-overlay"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={closeModal}
+            >
+              <motion.div 
+                className="project-modal"
+                initial={{ opacity: 0, scale: 0.9, y: 50 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.9, y: 50 }}
+                transition={{ type: "spring", damping: 25 }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Close Button */}
+                <button className="modal-close-btn" onClick={closeModal}>
+                  <i className="fas fa-times"></i>
+                </button>
+
+                {/* Modal Content */}
+                <div className="modal-content">
+                  
+                  {/* Left - Image Gallery */}
+                  <div className="modal-gallery">
+                    <div className="main-image-container">
+                      <motion.img
+                        key={currentImageIndex}
+                        src={selectedProject.images[currentImageIndex]}
+                        alt={`${selectedProject.title} - Image ${currentImageIndex + 1}`}
+                        className="main-image"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.3 }}
+                      />
+                      
+                      {/* Image Navigation */}
+                      {selectedProject.images.length > 1 && (
+                        <>
+                          <button className="img-nav-btn prev-btn" onClick={prevImage}>
+                            <i className="fas fa-chevron-left"></i>
+                          </button>
+                          <button className="img-nav-btn next-btn" onClick={nextImage}>
+                            <i className="fas fa-chevron-right"></i>
+                          </button>
+                        </>
+                      )}
+
+                      {/* Image Counter */}
+                      <div className="image-counter">
+                        <i className="fas fa-images"></i>
+                        {currentImageIndex + 1} / {selectedProject.images.length}
+                      </div>
+                    </div>
+
+                    {/* Thumbnails */}
+                    {selectedProject.images.length > 1 && (
+                      <div className="thumbnail-strip">
+                        {selectedProject.images.map((img, index) => (
+                          <motion.div
+                            key={index}
+                            className={`thumbnail ${index === currentImageIndex ? "active" : ""}`}
+                            onClick={() => setCurrentImageIndex(index)}
+                            whileHover={{ scale: 1.1 }}
+                          >
+                            <img src={img} alt={`Thumbnail ${index + 1}`} />
+                          </motion.div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Right - Project Details */}
+                  <div className="modal-details">
+                    <div className="details-scroll">
+                      
+                      {/* Header */}
+                      <div className="modal-header">
+                        <span className="modal-category">
+                          <i className={`fas fa-${selectedProject.category === 'project' ? 'code' : selectedProject.category === 'achievement' ? 'trophy' : 'user'}`}></i>
+                          {selectedProject.category}
+                        </span>
+                        {selectedProject.status && (
+                          <span className={`modal-status ${selectedProject.status.toLowerCase().replace(' ', '-')}`}>
+                            {selectedProject.status}
+                          </span>
+                        )}
+                      </div>
+                      
+                      <h1 className="modal-title">{selectedProject.title}</h1>
+                      
+                      {/* Meta Info */}
+                      <div className="modal-meta">
+                        {selectedProject.date && (
+                          <div className="meta-item">
+                            <i className="fas fa-calendar-alt"></i>
+                            <span>{selectedProject.date}</span>
+                          </div>
+                        )}
+                        {selectedProject.duration && (
+                          <div className="meta-item">
+                            <i className="fas fa-clock"></i>
+                            <span>{selectedProject.duration}</span>
+                          </div>
+                        )}
+                        {selectedProject.role && (
+                          <div className="meta-item">
+                            <i className="fas fa-user-tag"></i>
+                            <span>{selectedProject.role}</span>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Description */}
+                      <div className="modal-section">
+                        <h3><i className="fas fa-info-circle"></i> About</h3>
+                        <p className="modal-description">{selectedProject.fullDescription}</p>
+                      </div>
+
+                      {/* Technologies */}
+                      {selectedProject.technologies.length > 0 && (
+                        <div className="modal-section">
+                          <h3><i className="fas fa-tools"></i> Tech Stack</h3>
+                          <div className="tech-tags">
+                            {selectedProject.technologies.map((tech, index) => (
+                              <span key={index} className="tech-tag">{tech}</span>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Features */}
+                      {selectedProject.features.length > 0 && (
+                        <div className="modal-section">
+                          <h3><i className="fas fa-star"></i> Key Features</h3>
+                          <ul className="features-list">
+                            {selectedProject.features.map((feature, index) => (
+                              <li key={index}>
+                                <i className="fas fa-check-circle"></i>
+                                {feature}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      {/* Action Buttons */}
+                      {(selectedProject.liveLink || selectedProject.githubLink) && (
+                        <div className="modal-actions">
+                          {selectedProject.liveLink && (
+                            <motion.a
+                              href={selectedProject.liveLink}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="action-btn live-btn"
+                              whileHover={{ scale: 1.05 }}
+                              whileTap={{ scale: 0.95 }}
+                            >
+                              <i className="fas fa-rocket"></i>
+                              View Live
+                            </motion.a>
+                          )}
+                          {selectedProject.githubLink && (
+                            <motion.a
+                              href={selectedProject.githubLink}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="action-btn github-btn"
+                              whileHover={{ scale: 1.05 }}
+                              whileTap={{ scale: 0.95 }}
+                            >
+                              <i className="fab fa-github"></i>
+                              View Code
+                            </motion.a>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </section>
     </>
   );
