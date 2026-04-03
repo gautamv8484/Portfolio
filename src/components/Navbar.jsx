@@ -94,7 +94,7 @@ function Navbar() {
                 scrollToSection(item.id);
               }}
             >
-              <span className="nav-number">0{index + 1}.</span>
+              <span className="nav-number"></span>
               {item.name}
               <span className="nav-underline"></span>
             </a>

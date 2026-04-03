@@ -634,8 +634,8 @@ const galleryItems = [
       <section id="about" className="about-section section-animate">
         <div className="section-container">
           <div className="section-header">
-            <span className="section-number">01.</span>
-            <h2 className="section-title">About Me</h2>
+            <span className="section-number"></span>
+            <h2 className="section-title">About </h2>
             <div className="section-line"></div>
           </div>
 
@@ -703,7 +703,7 @@ const galleryItems = [
       <section id="skills" className="skills-section section-animate">
         <div className="section-container">
           <div className="section-header">
-            <span className="section-number">03.</span>
+            
             <h2 className="section-title">My Skills</h2>
             <div className="section-line"></div>
           </div>
@@ -797,7 +797,7 @@ const galleryItems = [
 
   <div className="section-container">
     <div className="section-header center">
-      <span className="section-number">03.</span>
+      <span className="section-number"></span>
       <h2 className="section-title">My Projects</h2>
       <div className="section-line center"></div>
     </div>
@@ -1095,7 +1095,7 @@ const galleryItems = [
       <section id="resume" className="resume-section section-animate">
         <div className="section-container">
           <div className="section-header center">
-            <span className="section-number">05.</span>
+            <span className="section-number"></span>
             <h2 className="section-title">Resume</h2>
             <div className="section-line center"></div>
           </div>
@@ -1153,7 +1153,7 @@ const galleryItems = [
       <section id="contact" className="contact-section section-animate">
         <div className="section-container">
           <div className="section-header center">
-            <span className="section-number">06.</span>
+            <span className="section-number"></span>
             <h2 className="section-title">Get In Touch</h2>
             <div className="section-line center"></div>
           </div>
