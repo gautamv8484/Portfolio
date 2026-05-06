@@ -71,12 +71,12 @@ function Resume() {
 
       {/* PDF Preview */}
       <div className="pdf">
-        <iframe src="/RESUME_GAUTAM_VYAS.pdf" title="resume"></iframe>
+        <iframe src="/GAUTAM_VYAS.pdf" title="resume"></iframe>
       </div>
 
       {/* Download Button */}
       <div className="download-btn">
-        <a href="/RESUME_GAUTAM_VYAS.pdf" download>
+        <a href="/GAUTAM_VYAS.pdf" download>
           ⬇ Download Resume
         </a>
       </div>
